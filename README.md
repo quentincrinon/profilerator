@@ -2,6 +2,8 @@
 
 This project is a random profile generator built with React, TypeScript, and Vite. It can be used as a Chrome extension to generate random profiles with useful information such as name, email, tax-id, phone number, etc.
 
+![image](https://github.com/user-attachments/assets/2de6e097-3737-4482-8a53-c424321414fe)
+
 ## Getting Started
 
 ### Prerequisites
