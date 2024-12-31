@@ -13,6 +13,7 @@ export const theme = {
   },
   fontSize: 16,
   spacing: 8,
+  toggleSize: 20,
 };
 
 export const GlobalStyles = createGlobalStyle`

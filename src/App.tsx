@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProfileItem from "./ProfileItem";
 import { Button } from "./components/Buttons";
 import { Header } from "./components/Header";
 import { Profile, ProfileLocation, ProfileName } from "./types";
-import { MultiCheckboxes } from "./components/MultiCheckboxes";
 import styled from "styled-components";
+import { MultiToggles } from "./components/MultiToggles";
+import { useCookie } from "./hooks/useCookie";
 
 const Content = styled.div`
   width: 100%;
@@ -32,17 +33,14 @@ const nationalities = [
 ];
 
 const App = () => {
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [selectedNationalities, setSelectedNationalities] = useState<string[]>(
+  const [profile, setProfile] = useCookie("profilerator_profile", null);
+  const [selectedNationalities, setSelectedNationalities] = useCookie(
+    "profilerator_selectedNationalities",
     nationalities.map((n) => n.key)
   );
 
   useEffect(() => {
-    const cachedProfile = localStorage.getItem("randomNameGenerator_cachedProfile");
-    if (cachedProfile) {
-      const profile = JSON.parse(cachedProfile);
-      setProfile(profile);
-    } else {
+    if (!profile) {
       generateProfile();
     }
   }, []);
@@ -60,7 +58,6 @@ const App = () => {
 
   const generateProfile = async () => {
     const profile = await fetchProfile();
-    localStorage.setItem("randomNameGenerator_cachedProfile", JSON.stringify(profile));
     setProfile(profile);
   };
 
@@ -89,7 +86,7 @@ const App = () => {
     if (checked) {
       setSelectedNationalities([...selectedNationalities, key]);
     } else {
-      setSelectedNationalities(selectedNationalities.filter((n) => n !== key));
+      setSelectedNationalities(selectedNationalities.filter((n: string) => n !== key));
     }
   };
 
@@ -134,7 +131,7 @@ const App = () => {
         )}
         <Controls>
           <Button onClick={generateProfile}>New name</Button>
-          <MultiCheckboxes
+          <MultiToggles
             options={nationalities}
             handleChange={handleNationalitySelectionChange}
             selected={selectedNationalities}
