@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     tags:
-      - '*'
+      - 'main'
 
 jobs:
   build:
@@ -16,9 +16,7 @@ jobs:
       with:
         node-version: 20
     - name: Build
-      run: |
-        npm ci
-        npm run build
+      run: npm run build
     - name: Upload & release
       uses: mnao305/chrome-extension-upload@v5.0.0
       with:
