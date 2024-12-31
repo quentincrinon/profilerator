@@ -4,6 +4,7 @@ import { lighten } from "polished";
 export const theme = {
   colors: {
     primary: "#0a0908",
+    primaryLight: lighten(0.5, "#0a0908"),
     secondary: "#22333b",
     secondaryLight: lighten(0.2, "#22333b"),
     tertiary: "#eae0d5",
