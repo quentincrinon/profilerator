@@ -17,13 +17,13 @@ jobs:
         run: |-
           npm install
           npm run build
-          zip -r chrome-extension-${{ github.event.pull_request.head.sha }}.zip build
+          zip -r chrome-extension-profilerator.zip build
 
       - name: Archive chrome-extension artifact
         uses: actions/upload-artifact@v4
         with:
-          name: chrome-extension-${{ github.sha }}
-          path: chrome-extension-${{ github.event.pull_request.head.sha }}.zip
+          name: chrome-extension-profilerator
+          path: chrome-extension-profilerator.zip
 
   # api usage reference:
   # * <https://developer.chrome.com/docs/webstore/using_webstore_api/>
@@ -41,7 +41,7 @@ jobs:
       - name: Download bundle artifact
         uses: actions/download-artifact@v4
         with:
-          name: chrome-extension-${{ github.sha }}
+          name: chrome-extension-profilerator
 
       - name: Install webstore cli
         run: |-
@@ -49,4 +49,4 @@ jobs:
 
       - name: Upload step
         run: |-
-          chrome-webstore-upload upload --source chrome-extension-${{ github.event.pull_request.head.sha }}.zip --extension-id ${{ secrets.EXTENSION_ID }} --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --refresh-token ${{ secrets.REFRESH_TOKEN }}
+          chrome-webstore-upload upload --source chrome-extension-profilerator.zip --extension-id ${{ secrets.EXTENSION_ID }} --client-id ${{ secrets.CLIENT_ID }} --client-secret ${{ secrets.CLIENT_SECRET }} --refresh-token ${{ secrets.REFRESH_TOKEN }}
